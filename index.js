@@ -45,39 +45,33 @@ function Person(name, age) {
   this.stomach = [];
 }
 
-personalbar.prototype.eat = function(edible){
-  if(this.stomach.legnth < 10){
+Person.prototype.eat = function(edible){
+  if(this.stomach.length < 10){
     this.stomach.push(edible);
   }
 }
 
-personalbar.prototype.toString = function(){
+Person.prototype.poop = function(){
+  this.stomach = [];
+}
+
+Person.prototype.toString = function(){
   return `${this.name}, ${this.age}`;
 }
-const james = new person (`James`, 31);
-const Sam = new person (`Sam`, 37);
-const Latoya = new person (`Latoya`, 32);
+
+const james = new Person('James', 31);
+const sam = new Person('Sam', 37);
+const latoya = new Person('Latoya', 32);
 
 console.log(james.toString());
-console.log(Sam.toString());
-console.log(Latoya.toString());
+console.log(sam.toString());
+console.log(latoya.toString());
 
-
-james.eat(`Pizza`);
-james.eat(`Bentobox`);
-james.eat(`Tacos`);
-james.eat(`sandwich`);
-james.eat(`sushi`);
-james.eat(`cake`)
-
-console.log('james stomach', james.stomach)
-console.log(james.poop());
-
-console.log(`james stomach after using the bathroom`, james.stomach)
-
-
-
-
+// james.eat('pizza');
+// james.eat('cakes');
+// james.eat('ice cream');
+// james.eat('candy');
+// james.eat('pie');
 
 /*
   TASK 2
@@ -93,11 +87,15 @@ console.log(`james stomach after using the bathroom`, james.stomach)
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-  
+function Car(model, milesPerGallon) {
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank = 0;
+  this.odometer = 0;
 }
-
-
+Car.prototype.fill = function(gallons){
+  this.tank = this.tank + gallons;
+}
 /*
   TASK 3
     - Write a Baby constructor subclassing Person.
@@ -105,18 +103,21 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
- 
+function Baby(name, age, favoriteToy) {
+ Person.call(this, name, age);
+ this.favoriteToy = favoriteToy
 }
-
 
 /* 
   TASK 4
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Principle 1: Window/Global Object Binding -
+  When in the global scope, the value of “this” will be the window/console Object;
+  2. Principle: Implicit Binding is applied when you invoke a function in an Object using the dot notation. this in such scenarios will point to the object using which the function was invoked. Or simply the object on the left side of the dot
+
+  3. Principle 3: New binding Whenever we use a constructor function, this refers to the specific instance of the object that is created and returned by the constructor function.
+
+  4. Principle 4: Explicit Binding is a  method, you can force a function to use a certain object as its this. Explicit Binding can be applied using call(), apply(), and bind().
 */
 
 
